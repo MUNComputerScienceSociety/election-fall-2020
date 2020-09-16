@@ -9,9 +9,6 @@
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
     <style>
-body {
-  margin: 0 0 4em 0;
-}
 html, body, pre, code, kbd, samp {
   font-family: "Press Start 2P";
 }
@@ -46,7 +43,16 @@ img {
   display: flex;
   margin: 0 auto;
   border: 2px solid black;
+}
+
+.photo {
   height: 25rem;
+}
+.role-entry {
+  border: 1px solid black;
+}
+.role-entry img {
+  height: 10rem;
 }
 
 h1 {
@@ -59,6 +65,9 @@ h1 {
   background-color: white;
   color: black;
 }
+.role {
+  display: flex;
+}
 .roles h2 {
   text-align: center;
 }
@@ -70,8 +79,7 @@ h1 {
   <body>
     <header>
       <h1>Memorial University's Computer Science Societies Fall 2020 Election</h1>
-      <p>This semester we're looking for new faces to help us create a community for students that is interactive, enjoyable, and familiar; vote for those faces below!.<p>
-      <a href="https://forms.gle/s1RtQiW68w7QE4Sr7"><button class="nes-btn is-primary">Vote here!</button></a>
+      <p>This semester we're looking for new faces to help us create a community for students that is interactive, enjoyable, and familiar; vote for those faces below!.<p><a href="https://forms.gle/s1RtQiW68w7QE4Sr7"><button class="nes-btn is-primary">Vote here!</button></a>
     </header>
     <div id="entry-container">
       <div class="nes-container is-dark roles">
@@ -81,7 +89,12 @@ h1 {
             <h3><%= key %></h3>
             <ol>
               <%- value.each_with_index do |entry, index| -%>
-                <a href="#<%= entry.name %>"><li><%= entry.name %></li></a>
+                <div class="role-entry">
+                  <%- if photo = entry.photo-%>
+                    <img src="./images/<%= photo %>" alt="Photograph of self sent in by <%= entry.name %>."/>
+                  <%- end -%>
+                  <a href="#<%= entry.name %>"><li><%= entry.name %></li></a>
+                </div>
               <%- end -%>
             </ol>
           </div>
@@ -92,7 +105,7 @@ h1 {
           <a href="#<%= entry.name %>"><h2><%= index + 1 %>. <%= entry.name %></h2></a>
           <p><%= entry.email %></p>
           <%- if photo = entry.photo-%>
-            <img src="./images/<%= photo %>" alt="Photograph of self sent in by <%= entry.name %>."/>
+            <img class="photo" src="./images/<%= photo %>" alt="Photograph of self sent in by <%= entry.name %>."/>
           <%- end -%>
           <div class="nes-container with-title is-rounded">
             <p class="title">Why are you interested in becoming an executive? / What would make you a good executive?</p>
