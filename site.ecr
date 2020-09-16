@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MUNCS Elections - Fall 2020</title>
+<meta name="author" content="Jack Arthur Harrhy">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+
+<style>
+html, body, pre, code, kbd, samp {
+  font-family: "Press Start 2P";
+}
+.entry {
+  margin: 3rem 1.5rem;
+}
+.entry {
+  max-width: 80rem;
+}
+#entry-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.entry .nes-container {
+  margin: 3rem 0 0 0;
+}
+p {
+  white-space: pre-wrap;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+img {
+  display: flex;
+  margin: 0 auto;
+  border: 2px solid black;
+  height: 25rem;
+}
+</style>
+<style>
+</style>
+</head>
+<body>
+<i class="nes-octocat animate"></i>
+<div id="entry-container">
+<%- entries.each_with_index do |entry, index| -%>
+  <div class="nes-container entry" id="<%= entry.name %>">
+    <a href="#<%= entry.name %>"><h2><%= index + 1 %>. <%= entry.name %></h2></a>
+    <p><%= entry.email %></p>
+    <%- if photo = entry.photo-%>
+      <img src="./images/<%= photo %>" alt="Photograph of self sent in by <%= entry.name %>."/>
+    <%- end -%>
+    <div class="nes-container with-title is-rounded">
+      <p class="title">Why are you interested in becoming an executive? / What would make you a good executive?</p>
+      <p><%= entry.paragraph_1%></p>
+    </div>
+    <div class="nes-container with-title is-rounded">
+      <p class="title">How long have you been in CS for? / What about CS interest you?</p>
+      <p><%= entry.paragraph_2%></p>
+    </div>
+    <div class="nes-container with-title is-rounded">
+      <p class="title">Which position(s) are you interested in?</p>
+      <div class="lists">
+        <ul class="nes-list is-disc">
+          <%- entry.roles.each do |role| -%>
+            <li><%= role %></li>
+          <%- end -%>
+        </ul>
+      </div>
+    </div>
+  </div>
+<%- end -%>
+</div>
+</body>
+</html>
