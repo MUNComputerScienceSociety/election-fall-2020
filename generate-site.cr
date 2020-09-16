@@ -26,10 +26,20 @@ struct Entry
   end
 end
 
+roles = Hash(String, Array(Entry)).new
+
 entries = [] of Entry
 
 CSV.each_row(content) do |row|
-  entries << Entry.new(row)
+  entry = Entry.new(row)
+  entry.roles.each do |role|
+    if slot = roles[role]?
+      slot << entry
+    else
+      roles[role] = [entry]
+    end
+  end
+  entries << entry
 end
 
 puts ECR.render("site.ecr")

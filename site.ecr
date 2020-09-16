@@ -10,13 +10,18 @@
 <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
 
 <style>
+body {
+  margin: 0 0 4em 0;
+}
 html, body, pre, code, kbd, samp {
   font-family: "Press Start 2P";
 }
-.entry {
-  margin: 3rem 1.5rem;
+header {
+  text-align: center;
+  padding: 0.5 2rem;
 }
 .entry {
+  margin: 3rem 1.5rem;
   max-width: 80rem;
 }
 #entry-container {
@@ -44,13 +49,46 @@ img {
   border: 2px solid black;
   height: 25rem;
 }
+
+h1 {
+  margin: 2rem 2rem 1rem 2rem;
+  text-align: center;
+}
+
+.role {
+  margin: 0.5rem 0;
+  background-color: white;
+  color: black;
+}
+.roles h2 {
+  text-align: center;
+}
+.roles h3 {
+  text-align: center;
+}
 </style>
 <style>
 </style>
 </head>
 <body>
-<i class="nes-octocat animate"></i>
+<header>
+<h1>Memorial University's Computer Science Societies Fall 2020 Election</h1>
+<p>This semester we're looking for new faces to help us create a community for students that is interactive, enjoyable, and familiar; vote for those faces below!.<p>
+</header>
 <div id="entry-container">
+<div class="nes-container is-dark roles">
+  <h2>Roles</h2>
+<%- roles.each do |key, value| -%>
+  <div class="nes-container role">
+    <h3><%= key %></h3>
+    <ol>
+    <%- value.each_with_index do |entry, index| -%>
+      <a href="#<%= entry.name %>"><li><%= entry.name %></li></a>
+    <%- end -%>
+    </ol>
+  </div>
+<%- end -%>
+</div>
 <%- entries.each_with_index do |entry, index| -%>
   <div class="nes-container entry" id="<%= entry.name %>">
     <a href="#<%= entry.name %>"><h2><%= index + 1 %>. <%= entry.name %></h2></a>
@@ -60,11 +98,11 @@ img {
     <%- end -%>
     <div class="nes-container with-title is-rounded">
       <p class="title">Why are you interested in becoming an executive? / What would make you a good executive?</p>
-      <p><%= entry.paragraph_1%></p>
+      <p><%= entry.paragraph_1 %></p>
     </div>
     <div class="nes-container with-title is-rounded">
       <p class="title">How long have you been in CS for? / What about CS interest you?</p>
-      <p><%= entry.paragraph_2%></p>
+      <p><%= entry.paragraph_2 %></p>
     </div>
     <div class="nes-container with-title is-rounded">
       <p class="title">Which position(s) are you interested in?</p>
@@ -78,6 +116,11 @@ img {
     </div>
   </div>
 <%- end -%>
+<a href="https://github.com/MUNComputerScienceSociety/election-fall-2020">
+  <div class="nes-container">
+    <p>Checkout this site on GitHub!</p>
+  </div>
+</a>
 </div>
 </body>
 </html>
