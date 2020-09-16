@@ -42,4 +42,10 @@ CSV.each_row(content) do |row|
   entries << entry
 end
 
+roles.each do |k,v|
+  v.sort! { |a, b| a.name <=> b.name }
+end
+
+entries.sort! { |a, b| a.name <=> b.name }
+
 puts ECR.render("site.ecr")
