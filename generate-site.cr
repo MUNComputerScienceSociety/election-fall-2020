@@ -1,11 +1,13 @@
 require "ecr"
 require "csv"
+require "option_parser"
 
 content = File.read("./data.csv")
 
 struct Entry
   property timestamp : String
   property email : String
+  property raw_email : String
   property name : String
   property roles : Array(String)
   property paragraph_1 : String
@@ -16,6 +18,7 @@ struct Entry
     timestamp, email, name, roles, paragraph_1, paragraph_2, photo = row
 
     @timestamp = timestamp
+    @raw_email = email
     @email = email.gsub("@", " <i><code>@</code></i> ")
     @name = name
     @roles = roles.split(';')
@@ -48,4 +51,25 @@ end
 
 entries.sort! { |a, b| a.name <=> b.name }
 
-puts ECR.render("site.ecr")
+parser = OptionParser.new do |parser|
+  parser.banner = "Usage: [arguments]"
+  parser.on("-o", "--output-html", "Output the site, using site.ecr as a template") do
+    puts ECR.render("site.ecr")
+    exit(0)
+  end
+  parser.on("-e", "--emails", "Output all emails") do
+    entries.each do |entry|
+      puts entry.raw_email
+    end
+    exit(0)
+  end
+  parser.invalid_option do |flag|
+    STDERR.puts "ERROR: #{flag} is not a valid option."
+    STDERR.puts parser
+    exit(1)
+  end
+end
+
+parser.parse
+
+puts parser
