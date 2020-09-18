@@ -46,10 +46,10 @@ CSV.each_row(content) do |row|
 end
 
 roles.each do |k,v|
-  v.sort! { |a, b| a.name <=> b.name }
+  v.shuffle!
 end
 
-entries.sort! { |a, b| a.name <=> b.name }
+entries.shuffle!
 
 parser = OptionParser.new do |parser|
   parser.banner = "Usage: [arguments]"
