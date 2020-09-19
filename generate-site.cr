@@ -63,6 +63,16 @@ parser = OptionParser.new do |parser|
     end
     exit(0)
   end
+  parser.on("-r", "--roles", "Output formatted list of each role") do
+    roles.each do |k,v|
+      puts "#{k}:"
+      v.each do |e|
+        puts "  #{e.name}"
+      end
+      puts ""
+    end
+    exit(0)
+  end
   parser.invalid_option do |flag|
     STDERR.puts "ERROR: #{flag} is not a valid option."
     STDERR.puts parser
